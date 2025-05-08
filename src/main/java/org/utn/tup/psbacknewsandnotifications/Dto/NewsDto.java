@@ -3,12 +3,13 @@ package org.utn.tup.psbacknewsandnotifications.Dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class SendEmailDto {
- private    String to;
-  private   String subject;
-  private   String body;
+public class NewsDto {
+    private String title;
+    private String body;
+    private MultipartFile image;
 }

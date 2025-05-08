@@ -1,0 +1,45 @@
+
+services:
+
+
+  news-service:
+    build: ../PS-Back-News-and-Notifications
+    container_name: news-service
+    ports:
+      - "8080:8080"
+    networks:
+      - news-network
+    depends_on:
+      - mysql-db
+
+
+  mysql-db:
+    image: mysql:8.0
+    container_name: news_db-mysql
+    environment:
+      MYSQL_DATABASE: news_db
+      MYSQL_USER: news_app
+      MYSQL_PASSWORD: news_pass
+      MYSQL_ROOT_PASSWORD: root_pass
+
+    ports:
+      - "3308:3306"
+    expose:
+      - "3308"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - news-network
+
+
+volumes:
+  mysql-data:
+
+networks:
+  news-network:
+    driver: bridge

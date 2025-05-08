@@ -19,7 +19,7 @@ public class EmailHandler {
     @Value("${spring.mail.username}")
     private String from;
 
-    private void sendEmail(String to, String subject, String body) throws UnsupportedEncodingException, MessagingException {
+    public void sendEmail(String to, String subject, String body) throws UnsupportedEncodingException, MessagingException {
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
